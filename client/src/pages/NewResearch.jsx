@@ -4,7 +4,6 @@ import { api } from '../services/api.js';
 import { Button } from '../components/ui/Button.jsx';
 import { Card } from '../components/ui/Card.jsx';
 import { Sparkles, Compass, Sliders, Globe, Shield, ArrowRight, Zap, Target, BookOpen } from 'lucide-react';
-import { RESEARCH_DEPTHS } from '../../../shared/constants/research.js';
 
 export const NewResearch = () => {
   const navigate = useNavigate();

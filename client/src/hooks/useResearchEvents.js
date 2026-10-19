@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
+import { BASE_URL } from '../services/api.js';
 
 export function useResearchEvents(researchId, onComplete) {
   const [events, setEvents] = useState([]);
@@ -16,7 +17,7 @@ export function useResearchEvents(researchId, onComplete) {
     let isCancelled = false;
 
     try {
-      eventSource = new EventSource(`/api/research/${researchId}/events`, {
+      eventSource = new EventSource(`${BASE_URL}/research/${researchId}/events`, {
         withCredentials: true,
       });
 

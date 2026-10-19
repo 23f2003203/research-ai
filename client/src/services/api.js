@@ -1,4 +1,9 @@
-const BASE_URL = '/api';
+const rawApiUrl = import.meta.env.VITE_API_URL;
+export const BASE_URL = rawApiUrl
+  ? rawApiUrl.endsWith('/api')
+    ? rawApiUrl
+    : `${rawApiUrl.replace(/\/+$/, '')}/api`
+  : '/api';
 
 async function request(endpoint, options = {}) {
   const defaultHeaders = {
