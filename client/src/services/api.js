@@ -5,10 +5,29 @@ export const BASE_URL = rawApiUrl
     : `${rawApiUrl.replace(/\/+$/, '')}/api`
   : '/api';
 
+let authToken = typeof window !== 'undefined' ? localStorage.getItem('research_ai_token') : null;
+
+export const setAuthToken = (token) => {
+  authToken = token;
+  if (typeof window !== 'undefined') {
+    if (token) {
+      localStorage.setItem('research_ai_token', token);
+    } else {
+      localStorage.removeItem('research_ai_token');
+    }
+  }
+};
+
+export const getAuthToken = () => authToken;
+
 async function request(endpoint, options = {}) {
   const defaultHeaders = {
     'Content-Type': 'application/json',
   };
+
+  if (authToken) {
+    defaultHeaders['Authorization'] = `Bearer ${authToken}`;
+  }
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
@@ -33,9 +52,23 @@ async function request(endpoint, options = {}) {
 
 export const api = {
   // Auth
-  register: (body) => request('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
-  login: (body) => request('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
-  logout: () => request('/auth/logout', { method: 'POST' }),
+  register: async (body) => {
+    const data = await request('/auth/register', { method: 'POST', body: JSON.stringify(body) });
+    if (data.token) setAuthToken(data.token);
+    return data;
+  },
+  login: async (body) => {
+    const data = await request('/auth/login', { method: 'POST', body: JSON.stringify(body) });
+    if (data.token) setAuthToken(data.token);
+    return data;
+  },
+  logout: async () => {
+    try {
+      return await request('/auth/logout', { method: 'POST' });
+    } finally {
+      setAuthToken(null);
+    }
+  },
   getMe: () => request('/auth/me', { method: 'GET' }),
 
   // Research

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { BASE_URL } from '../services/api.js';
+import { BASE_URL, getAuthToken } from '../services/api.js';
 
 export function useResearchEvents(researchId, onComplete) {
   const [events, setEvents] = useState([]);
@@ -17,7 +17,9 @@ export function useResearchEvents(researchId, onComplete) {
     let isCancelled = false;
 
     try {
-      eventSource = new EventSource(`${BASE_URL}/research/${researchId}/events`, {
+      const token = getAuthToken();
+      const tokenQuery = token ? `?token=${encodeURIComponent(token)}` : '';
+      eventSource = new EventSource(`${BASE_URL}/research/${researchId}/events${tokenQuery}`, {
         withCredentials: true,
       });
 
