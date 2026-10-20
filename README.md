@@ -140,10 +140,10 @@ MONGODB_URI=mongodb://localhost:27017/research_ai
 JWT_SECRET=your_super_secret_jwt_key_at_least_32_characters_long
 COOKIE_SECURE=false
 
-# Google Gemini API (Get key at https://aistudio.google.com/)
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
-GEMINI_EMBEDDING_MODEL=text-embedding-004
+# Groq API (Primary High-Speed AI Engine, get key at https://console.groq.com/)
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=openai/gpt-oss-120b
+GROQ_FAST_MODEL=qwen/qwen3.8-27b
 
 # Tavily Search API (Get key at https://tavily.com/)
 TAVILY_API_KEY=your_tavily_api_key_here

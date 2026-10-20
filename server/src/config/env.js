@@ -18,7 +18,12 @@ export const env = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
   COOKIE_SECURE: process.env.COOKIE_SECURE === 'true' || process.env.NODE_ENV === 'production',
 
-  // Google Gemini API
+  // Groq API (High-Performance Fast AI Reasoning Engine)
+  GROQ_API_KEY: process.env.GROQ_API_KEY || '',
+  GROQ_MODEL: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
+  GROQ_FAST_MODEL: process.env.GROQ_FAST_MODEL || 'qwen/qwen3.8-27b',
+
+  // Google Gemini API (Optional Fallback)
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
   GEMINI_MODEL: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
   GEMINI_PREMIUM_MODEL: process.env.GEMINI_PREMIUM_MODEL || 'gemini-3.8-flash',
@@ -36,8 +41,8 @@ export const env = {
 
 export const validateEnv = () => {
   const warnings = [];
-  if (!env.GEMINI_API_KEY) {
-    warnings.push('GEMINI_API_KEY is not set. Real Gemini LLM generation will require this key.');
+  if (!env.GROQ_API_KEY && !env.GEMINI_API_KEY) {
+    warnings.push('GROQ_API_KEY is not set. Real AI generation will require this key.');
   }
   if (!env.TAVILY_API_KEY) {
     warnings.push('TAVILY_API_KEY is not set. Live web searches will require this key.');

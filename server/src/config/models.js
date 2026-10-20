@@ -1,9 +1,10 @@
 import { env } from './env.js';
 
 export const MODEL_CONFIG = {
-  mainModel: env.GEMINI_MODEL,
-  premiumModel: env.GEMINI_PREMIUM_MODEL,
-  embeddingModel: env.GEMINI_EMBEDDING_MODEL,
+  mainModel: env.GROQ_MODEL,
+  premiumModel: env.GROQ_MODEL,
+  fastModel: env.GROQ_FAST_MODEL,
+  embeddingModel: env.GEMINI_EMBEDDING_MODEL || 'text-embedding-deterministic',
 
   agentSettings: {
     planner: {

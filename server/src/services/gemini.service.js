@@ -2,6 +2,7 @@ import { env } from '../config/env.js';
 import { MODEL_CONFIG } from '../config/models.js';
 import { logger } from '../utils/logger.js';
 import { hashText } from '../utils/text.js';
+import { groqService } from './groq.service.js';
 
 // In-memory cache for embeddings to prevent redundant API calls
 const embeddingCache = new Map();
@@ -308,4 +309,5 @@ class GeminiService {
   }
 }
 
-export const geminiService = new GeminiService();
+export { groqService };
+export const geminiService = groqService.isConfigured() ? groqService : new GeminiService();

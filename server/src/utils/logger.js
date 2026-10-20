@@ -5,6 +5,7 @@ const SENSITIVE_KEYS = [
   'token',
   'apiKey',
   'api_key',
+  'groq_api_key',
   'gemini_api_key',
   'tavily_api_key',
   'authorization',

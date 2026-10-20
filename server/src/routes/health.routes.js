@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
       name: mongoose.connection.name || 'research_ai',
     },
     providers: {
-      gemini: {
+      groq: {
         configured: geminiService.isConfigured(),
-        model: env.GEMINI_MODEL,
-        embeddingModel: env.GEMINI_EMBEDDING_MODEL,
+        model: env.GROQ_MODEL,
+        provider: 'Groq Cloud LPU',
       },
       tavily: {
         configured: tavilyService.isConfigured(),
